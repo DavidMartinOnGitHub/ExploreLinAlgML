@@ -7,7 +7,30 @@ Created on Wed Sep 27 09:16:12 2023
 
 #%%
 import numpy as np
+import inspect
 
+
+#%%
+
+# usage : print(retrieve_name(y))
+
+def retrieve_name(var):
+    callers_local_vars = inspect.currentframe().f_back.f_back.f_locals.items()    
+    return [var_name for var_name, var_val in callers_local_vars if var_val is var][0]
+
+#%%
+def AreMatricesEqual(a, b) :
+    ismatch = np.allclose(a, b, rtol=0.0, atol=1e-08);
+    
+    print(retrieve_name(a) + ":\n" , a)
+    print(retrieve_name(b) + ":\n" , b)
+
+    prefix = "Matrices " + "'" + retrieve_name(a) + "'" + " and " + "'" + retrieve_name(b) + "'" + " are " 
+    result = "Equal" if ismatch else "NOT Equal"
+    print(prefix + result);
+    print("");
+    return;
+    
 #%%
 
 A = np.array([
@@ -40,11 +63,8 @@ y2 = eigenvalues[1]
 L1 = np.matmul(A, v1)
 R1 = (y1 * v1)
 
-print("L1")
-print(L1)
-print("R1")
-print(R1)
 # L1 and R1 are expected to be equal
+AreMatricesEqual(L1, R1);
 
 #%%
 # for the second eigenvalue/eigenvector
@@ -52,11 +72,8 @@ print(R1)
 L2 = np.matmul(A, v2)
 R2 = (y2 * v2)
 
-print("L2")
-print(L2)
-print("R2")
-print(R2)
 # L2 and R2 are expected to be equal
+AreMatricesEqual(L2, R2);
 
 
 #%%
@@ -64,11 +81,8 @@ print(R2)
 L = np.matmul(A,eigenvectors) # matrix multiplication
 R = eigenvalues*eigenvectors  # scalar multiplication
 
-print("L")
-print(L)
-print("R")
-print(R)
 # L and R are expected to be equal
+AreMatricesEqual(L, R);
 
 
 
@@ -86,18 +100,19 @@ Y = np.diag(eigenvalues)
 
 B = np.matmul(np.matmul(Q, Y), np.linalg.inv(Q))
 
-print("A")
-print(A)
-print("B")
-print(B)
+AreMatricesEqual(A, B);
+
 
 #%%
 # To eliminate the scalar multiplication and use matrix multiplcation
 # we put the eigenvalues into a diagonal matrix and multiply on the right
 R3 = np.matmul(eigenvectors, np.diag(eigenvalues))
-print("L")
-print(L)
-print("R3")
-print(R3)
+
 # L and R3 are expected to be equal
+AreMatricesEqual(L, R3);
+
+
+#%%
+
+
 
