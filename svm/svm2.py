@@ -21,13 +21,10 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler;
 from sklearn.svm import SVC;
 
-#%%
-
-filename = r"ptspectra.csv";
 
 #%%
 
-df = pd.read_csv(filename, sep=",")
+df = pd.read_csv('https://bit.ly/48CQOZS', sep=",", header=0, encoding='utf-8')
 
 #%%
 

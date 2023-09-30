@@ -38,15 +38,11 @@ def PlotSpectra(x, y, colors):
     ax.set_title("Spectra")  # Add a title to the axes.
         
     return
-#%%
 
-# filename = r"C:\Users\Admin\source\repos\LinearAlgebra\svm\ptspectra.csv";
-filename = r"ptspectra.csv";
 
 #%%
 
-df = pd.read_csv(filename, sep=",")
-
+df = pd.read_csv('https://bit.ly/48CQOZS', sep=",", header=0, encoding='utf-8')
 
 #%%
 
