@@ -66,4 +66,8 @@ predictions = svc.predict(Xp);
 # print True if all predictions are correct
 print((Ytest == predictions).all());
 
+#%%
+
+# alternatively use the score
+print("Test Set Accuracy = ", svc.score(Xtest,Ytest)*100.0, "%")
 
