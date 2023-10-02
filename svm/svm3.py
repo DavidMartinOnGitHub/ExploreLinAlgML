@@ -20,6 +20,8 @@ from sklearn.preprocessing import StandardScaler;
 from sklearn.svm import SVC;
 from sklearn.model_selection import train_test_split;
 from sklearn.pipeline import Pipeline; # For setting up pipeline
+from sklearn.metrics import confusion_matrix;
+
 
 #%%
 
@@ -55,4 +57,24 @@ pipe.fit(Xtrain, Ytrain);
 
 print('Training set score: ' + str(pipe.score(Xtrain,Ytrain)))
 print('Test set score: ' + str(pipe.score(Xtest, Ytest)))
+
+#%%
+actual = pipe.predict(Xtest);
+
+#%%
+
+m = confusion_matrix(Ytest, actual);
+print("Confusion Matrix:\n", m);
+
+#%%
+# create a DataFrame with 'actual' and 'expected' predictions
+
+df = pd.DataFrame()
+df['actual'] = actual
+df['expected'] = np.array(Ytest)
+
+#%%
+
+# verify that all predicts are correct
+assert((df['actual'] == df['expected']).all())
 
